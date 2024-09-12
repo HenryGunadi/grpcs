@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option go_package = "github.com/HenryGunadi/grpcs";
+
+import "google/protobuf/timestamp.proto";
+
+
+service OrderService {
+  rpc CreateOrder (CreateOrderRequest) returns (OrderRequestResponse) {}
+  rpc GetOrder (GetOrderRequest) returns (OrderResponse) {}
+}
+
+message Order {
+  int32 OrderID = 1;
+  int32 ProductID = 2;
+  int32 Quantity = 3;
+  bool Status = 4;
+}
+
+message CreateOrderRequest {
+  int32 OrderRequestID = 1;
+  repeated Order Orders = 2;
+  bool Status = 3;
+  google.protobuf.Timestamp CreatedAt = 4;
+}
+
+message OrderRequestResponse {
+  string Message = 1;
+}
+
+message GetOrderRequest {
+  int32 OrderRequestID = 1;
+}
+
+message OrderResponse {
+  string Message = 1;
+  repeated CreateOrderRequest OrderRequests = 2;
+}
+
